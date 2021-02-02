@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="financedbModelStoreContainer" CdmEntityContainer="financedbEntities6">
+    <EntitySetMapping Name="adminMasters">
+      <EntityTypeMapping TypeName="financedbModel.adminMaster">
+        <MappingFragment StoreEntitySet="adminMaster">
+          <ScalarProperty Name="admin_password" ColumnName="admin_password" />
+          <ScalarProperty Name="admin_username" ColumnName="admin_username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CardTypeMasters">
+      <EntityTypeMapping TypeName="financedbModel.CardTypeMaster">
+        <MappingFragment StoreEntitySet="CardTypeMaster">
+          <ScalarProperty Name="EMIcardtype_name" ColumnName="EMIcardtype_name" />
+          <ScalarProperty Name="EMIcard_validity" ColumnName="EMIcard_validity" />
+          <ScalarProperty Name="total_limit" ColumnName="total_limit" />
+          <ScalarProperty Name="EMIcardtype_id" ColumnName="EMIcardtype_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Customers">
+      <EntityTypeMapping TypeName="financedbModel.Customer">
+        <MappingFragment StoreEntitySet="Customer">
+          <ScalarProperty Name="customer_dob" ColumnName="customer_dob" />
+          <ScalarProperty Name="pan_number" ColumnName="pan_number" />
+          <ScalarProperty Name="isapproved" ColumnName="isapproved" />
+          <ScalarProperty Name="haspaid" ColumnName="haspaid" />
+          <ScalarProperty Name="cardtype_id" ColumnName="cardtype_id" />
+          <ScalarProperty Name="account_number" ColumnName="account_number" />
+          <ScalarProperty Name="IFSC_code" ColumnName="IFSC_code" />
+          <ScalarProperty Name="bank_name" ColumnName="bank_name" />
+          <ScalarProperty Name="user_address" ColumnName="user_address" />
+          <ScalarProperty Name="user_email" ColumnName="user_email" />
+          <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+          <ScalarProperty Name="user_password" ColumnName="user_password" />
+          <ScalarProperty Name="user_name" ColumnName="user_name" />
+          <ScalarProperty Name="customer_name" ColumnName="customer_name" />
+          <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EMIcards">
+      <EntityTypeMapping TypeName="financedbModel.EMIcard">
+        <MappingFragment StoreEntitySet="EMIcard">
+          <ScalarProperty Name="EMIcard_expiry" ColumnName="EMIcard_expiry" />
+          <ScalarProperty Name="remaining_credit" ColumnName="remaining_credit" />
+          <ScalarProperty Name="used_credit" ColumnName="used_credit" />
+          <ScalarProperty Name="EMIcard_number" ColumnName="EMIcard_number" />
+          <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+          <ScalarProperty Name="EMIcard_id" ColumnName="EMIcard_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EMItypeMasters">
+      <EntityTypeMapping TypeName="financedbModel.EMItypeMaster">
+        <MappingFragment StoreEntitySet="EMItypeMaster">
+          <ScalarProperty Name="EMI_tenure" ColumnName="EMI_tenure" />
+          <ScalarProperty Name="EMI_key" ColumnName="EMI_key" />
+          <ScalarProperty Name="EMItype_id" ColumnName="EMItype_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="orders">
+      <EntityTypeMapping TypeName="financedbModel.order">
+        <MappingFragment StoreEntitySet="orders">
+          <ScalarProperty Name="order_status" ColumnName="order_status" />
+          <ScalarProperty Name="EMItype_id" ColumnName="EMItype_id" />
+          <ScalarProperty Name="EMI_amount" ColumnName="EMI_amount" />
+          <ScalarProperty Name="order_date" ColumnName="order_date" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+          <ScalarProperty Name="customer_id" ColumnName="customer_id" />
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productFAQs">
+      <EntityTypeMapping TypeName="financedbModel.productFAQ">
+        <MappingFragment StoreEntitySet="productFAQ">
+          <ScalarProperty Name="question" ColumnName="question" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+          <ScalarProperty Name="productFAQ_id" ColumnName="productFAQ_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="productsMasters">
+      <EntityTypeMapping TypeName="financedbModel.productsMaster">
+        <MappingFragment StoreEntitySet="productsMaster">
+          <ScalarProperty Name="product_details" ColumnName="product_details" />
+          <ScalarProperty Name="product_image" ColumnName="product_image" />
+          <ScalarProperty Name="product_price" ColumnName="product_price" />
+          <ScalarProperty Name="product_name" ColumnName="product_name" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transactions">
+      <EntityTypeMapping TypeName="financedbModel.Transaction">
+        <MappingFragment StoreEntitySet="Transactions">
+          <ScalarProperty Name="Transaction_amount" ColumnName="Transaction_amount" />
+          <ScalarProperty Name="Transaction_status" ColumnName="Transaction_status" />
+          <ScalarProperty Name="Transction_date" ColumnName="Transction_date" />
+          <ScalarProperty Name="order_id" ColumnName="order_id" />
+          <ScalarProperty Name="Transaction_id" ColumnName="Transaction_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

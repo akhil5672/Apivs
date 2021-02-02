@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="financedbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="adminMaster">
+    <Key>
+      <PropertyRef Name="admin_username" />
+    </Key>
+    <Property Name="admin_username" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="admin_password" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="CardTypeMaster">
+    <Key>
+      <PropertyRef Name="EMIcardtype_id" />
+    </Key>
+    <Property Name="EMIcardtype_id" Type="Int32" Nullable="false" />
+    <Property Name="total_limit" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="EMIcard_validity" Type="Int32" Nullable="false" />
+    <Property Name="EMIcardtype_name" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Customers" Relationship="Self.FK__Customer__cardty__3B75D760" FromRole="CardTypeMaster" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="Customer">
+    <Key>
+      <PropertyRef Name="customer_id" />
+    </Key>
+    <Property Name="customer_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customer_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="user_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="user_password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="phone_number" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="user_email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="user_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="bank_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IFSC_code" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="account_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="cardtype_id" Type="Int32" Nullable="false" />
+    <Property Name="haspaid" Type="Boolean" />
+    <Property Name="isapproved" Type="Boolean" Nullable="false" />
+    <Property Name="pan_number" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="CardTypeMaster" Relationship="Self.FK__Customer__cardty__3B75D760" FromRole="Customer" ToRole="CardTypeMaster" />
+    <NavigationProperty Name="EMIcards" Relationship="Self.FK__EMIcard__custome__412EB0B6" FromRole="Customer" ToRole="EMIcard" />
+    <NavigationProperty Name="orders" Relationship="Self.FK__orders__customer__4AB81AF0" FromRole="Customer" ToRole="orders" />
+    <Property Name="customer_dob" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="EMIcard">
+    <Key>
+      <PropertyRef Name="EMIcard_id" />
+    </Key>
+    <Property Name="EMIcard_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customer_id" Type="Int32" />
+    <Property Name="EMIcard_number" Type="Int32" Nullable="false" />
+    <Property Name="used_credit" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="remaining_credit" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="EMIcard_expiry" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__EMIcard__custome__412EB0B6" FromRole="EMIcard" ToRole="Customer" />
+  </EntityType>
+  <EntityType Name="EMItypeMaster">
+    <Key>
+      <PropertyRef Name="EMItype_id" />
+    </Key>
+    <Property Name="EMItype_id" Type="Int32" Nullable="false" />
+    <Property Name="EMI_key" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="EMI_tenure" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="orders" Relationship="Self.FK__orders__EMItype___4CA06362" FromRole="EMItypeMaster" ToRole="orders" />
+  </EntityType>
+  <EntityType Name="order">
+    <Key>
+      <PropertyRef Name="order_id" />
+    </Key>
+    <Property Name="order_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="customer_id" Type="Int32" />
+    <Property Name="product_id" Type="Int32" />
+    <Property Name="order_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EMI_amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="EMItype_id" Type="Int32" />
+    <Property Name="order_status" Type="Boolean" />
+    <NavigationProperty Name="Customer" Relationship="Self.FK__orders__customer__4AB81AF0" FromRole="orders" ToRole="Customer" />
+    <NavigationProperty Name="EMItypeMaster" Relationship="Self.FK__orders__EMItype___4CA06362" FromRole="orders" ToRole="EMItypeMaster" />
+    <NavigationProperty Name="productsMaster" Relationship="Self.FK__orders__product___4BAC3F29" FromRole="orders" ToRole="productsMaster" />
+    <NavigationProperty Name="Transactions" Relationship="Self.FK__Transacti__order__534D60F1" FromRole="orders" ToRole="Transactions" />
+  </EntityType>
+  <EntityType Name="productFAQ">
+    <Key>
+      <PropertyRef Name="productFAQ_id" />
+    </Key>
+    <Property Name="productFAQ_id" Type="Int32" Nullable="false" />
+    <Property Name="product_id" Type="Int32" />
+    <Property Name="question" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="productsMaster" Relationship="Self.FK__productFA__produ__47DBAE45" FromRole="productFAQ" ToRole="productsMaster" />
+  </EntityType>
+  <EntityType Name="productsMaster">
+    <Key>
+      <PropertyRef Name="product_id" />
+    </Key>
+    <Property Name="product_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="product_name" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="product_price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <Property Name="product_image" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="product_details" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="orders" Relationship="Self.FK__orders__product___4BAC3F29" FromRole="productsMaster" ToRole="orders" />
+    <NavigationProperty Name="productFAQs" Relationship="Self.FK__productFA__produ__47DBAE45" FromRole="productsMaster" ToRole="productFAQ" />
+  </EntityType>
+  <EntityType Name="Transaction">
+    <Key>
+      <PropertyRef Name="Transaction_id" />
+    </Key>
+    <Property Name="Transaction_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="order_id" Type="Int32" />
+    <Property Name="Transction_date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Transaction_status" Type="Boolean" />
+    <Property Name="Transaction_amount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="order" Relationship="Self.FK__Transacti__order__534D60F1" FromRole="Transactions" ToRole="orders" />
+  </EntityType>
+  <Association Name="FK__Customer__cardty__3B75D760">
+    <End Role="CardTypeMaster" Type="Self.CardTypeMaster" Multiplicity="1" />
+    <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CardTypeMaster">
+        <PropertyRef Name="EMIcardtype_id" />
+      </Principal>
+      <Dependent Role="Customer">
+        <PropertyRef Name="cardtype_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__EMIcard__custome__412EB0B6">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="EMIcard" Type="Self.EMIcard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="customer_id" />
+      </Principal>
+      <Dependent Role="EMIcard">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__customer__4AB81AF0">
+    <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Customer">
+        <PropertyRef Name="customer_id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="customer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__EMItype___4CA06362">
+    <End Role="EMItypeMaster" Type="Self.EMItypeMaster" Multiplicity="0..1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMItypeMaster">
+        <PropertyRef Name="EMItype_id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="EMItype_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__orders__product___4BAC3F29">
+    <End Role="productsMaster" Type="Self.productsMaster" Multiplicity="0..1" />
+    <End Role="orders" Type="Self.order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productsMaster">
+        <PropertyRef Name="product_id" />
+      </Principal>
+      <Dependent Role="orders">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Transacti__order__534D60F1">
+    <End Role="orders" Type="Self.order" Multiplicity="0..1" />
+    <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="orders">
+        <PropertyRef Name="order_id" />
+      </Principal>
+      <Dependent Role="Transactions">
+        <PropertyRef Name="order_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__productFA__produ__47DBAE45">
+    <End Role="productsMaster" Type="Self.productsMaster" Multiplicity="0..1" />
+    <End Role="productFAQ" Type="Self.productFAQ" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="productsMaster">
+        <PropertyRef Name="product_id" />
+      </Principal>
+      <Dependent Role="productFAQ">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="financedbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="adminMasters" EntityType="Self.adminMaster" />
+    <EntitySet Name="CardTypeMasters" EntityType="Self.CardTypeMaster" />
+    <EntitySet Name="Customers" EntityType="Self.Customer" />
+    <EntitySet Name="EMIcards" EntityType="Self.EMIcard" />
+    <EntitySet Name="EMItypeMasters" EntityType="Self.EMItypeMaster" />
+    <EntitySet Name="orders" EntityType="Self.order" />
+    <EntitySet Name="productFAQs" EntityType="Self.productFAQ" />
+    <EntitySet Name="productsMasters" EntityType="Self.productsMaster" />
+    <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+    <AssociationSet Name="FK__Customer__cardty__3B75D760" Association="Self.FK__Customer__cardty__3B75D760">
+      <End Role="CardTypeMaster" EntitySet="CardTypeMasters" />
+      <End Role="Customer" EntitySet="Customers" />
+    </AssociationSet>
+    <AssociationSet Name="FK__EMIcard__custome__412EB0B6" Association="Self.FK__EMIcard__custome__412EB0B6">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="EMIcard" EntitySet="EMIcards" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__customer__4AB81AF0" Association="Self.FK__orders__customer__4AB81AF0">
+      <End Role="Customer" EntitySet="Customers" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__EMItype___4CA06362" Association="Self.FK__orders__EMItype___4CA06362">
+      <End Role="EMItypeMaster" EntitySet="EMItypeMasters" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__orders__product___4BAC3F29" Association="Self.FK__orders__product___4BAC3F29">
+      <End Role="productsMaster" EntitySet="productsMasters" />
+      <End Role="orders" EntitySet="orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Transacti__order__534D60F1" Association="Self.FK__Transacti__order__534D60F1">
+      <End Role="orders" EntitySet="orders" />
+      <End Role="Transactions" EntitySet="Transactions" />
+    </AssociationSet>
+    <AssociationSet Name="FK__productFA__produ__47DBAE45" Association="Self.FK__productFA__produ__47DBAE45">
+      <End Role="productsMaster" EntitySet="productsMasters" />
+      <End Role="productFAQ" EntitySet="productFAQs" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
